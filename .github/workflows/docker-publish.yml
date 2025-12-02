@@ -1,0 +1,119 @@
+name: Build and Publish Docker Images
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      force_build:
+        description: 'Force build even if no changes detected'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  REGISTRY: ghcr.io
+  SERVER_IMAGE_NAME: ${{ github.repository }}-server
+  MIGRATIONS_IMAGE_NAME: ${{ github.repository }}-migrations
+
+jobs:
+  build-server:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Server
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE_NAME }}
+          tags: |
+            # Set latest tag for master branch
+            type=raw,value=latest,enable={{is_default_branch}}
+            # Set tag for semantic version tags (v1.0.0 -> 1.0.0)
+            type=semver,pattern={{version}}
+            # Set major.minor tag (v1.0.0 -> 1.0)
+            type=semver,pattern={{major}}.{{minor}}
+            # Set major tag (v1.0.0 -> 1)
+            type=semver,pattern={{major}}
+            # Set sha tag for all builds
+            type=sha,prefix=sha-,format=short
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Server image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/server/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+  build-migrations:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Migrations
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.MIGRATIONS_IMAGE_NAME }}
+          tags: |
+            # Set latest tag for master branch
+            type=raw,value=latest,enable={{is_default_branch}}
+            # Set tag for semantic version tags (v1.0.0 -> 1.0.0)
+            type=semver,pattern={{version}}
+            # Set major.minor tag (v1.0.0 -> 1.0)
+            type=semver,pattern={{major}}.{{minor}}
+            # Set major tag (v1.0.0 -> 1)
+            type=semver,pattern={{major}}
+            # Set sha tag for all builds
+            type=sha,prefix=sha-,format=short
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Migrations image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./packages/db/Dockerfile.migrations
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64

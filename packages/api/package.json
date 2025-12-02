@@ -1,0 +1,33 @@
+{
+	"name": "@jobtrail/api",
+	"exports": {
+		".": {
+			"default": "./src/index.ts"
+		},
+		"./*": {
+			"default": "./src/*.ts"
+		}
+	},
+	"type": "module",
+	"scripts": {},
+	"devDependencies": {
+		"@jobtrail/config": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@jobtrail/auth": "workspace:*",
+		"@jobtrail/common": "workspace:*",
+		"@jobtrail/db": "workspace:*",
+		"@orpc/client": "catalog:",
+		"@orpc/openapi": "catalog:",
+		"@orpc/server": "catalog:",
+		"@orpc/zod": "catalog:",
+		"dotenv": "catalog:",
+		"drizzle-orm": "^0.44.7",
+		"generate-random-color": "^1.0.6",
+		"hono": "catalog:",
+		"zod": "^4.1.11"
+	}
+}

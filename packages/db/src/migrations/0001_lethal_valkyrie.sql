@@ -1,0 +1,1 @@
+ALTER TABLE "application" ADD COLUMN "submitted_at" timestamp DEFAULT now() NOT NULL;
