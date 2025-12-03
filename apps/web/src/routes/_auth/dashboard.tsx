@@ -13,28 +13,12 @@ export const Route = createFileRoute("/_auth/dashboard")({
 });
 
 function RouteComponent() {
-	const { customerState, user } = Route.useRouteContext();
 
-	const hasProSubscription = customerState?.activeSubscriptions?.length! > 0;
-	console.log("Active subscriptions:", customerState?.activeSubscriptions);
 
 	return (
 		<div>
-			<h1>Dashboard</h1>
 			<AddApplicationDialog />
-			<p>Welcome {user?.name}</p>
-			<p>Plan: {hasProSubscription ? "Pro" : "Free"}</p>
-			{hasProSubscription ? (
-				<Button onClick={async () => await authClient.customer.portal()}>
-					Manage Subscription
-				</Button>
-			) : (
-				<Button
-					onClick={async () => await authClient.checkout({ slug: "pro" })}
-				>
-					Upgrade to Pro
-				</Button>
-			)}
+
 			<div className="h-full max-h-[80%] w-full">
 				<Board />
 			</div>

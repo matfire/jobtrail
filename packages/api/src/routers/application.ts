@@ -28,13 +28,14 @@ const createApplicationInputSchema = z.object({
 	companyName: z.string(),
 	postUrl: z.string().nullish(),
 	positionId: z.string().nullable(),
+	submittedAt: z.date().optional(),
 });
 
 const createApplication = protectedProcedure
 	.input(createApplicationInputSchema)
 	.output(ApplicationSchema)
 	.handler(async ({ context, input }) => {
-		const { companyName, postUrl, positionId } = input;
+		const { companyName, postUrl, positionId, submittedAt } = input;
 		const newApplication = (
 			await db
 				.insert(application)
@@ -43,6 +44,7 @@ const createApplication = protectedProcedure
 					companyName,
 					postUrl,
 					positionId,
+					submittedAt,
 				})
 				.returning()
 		).at(0);

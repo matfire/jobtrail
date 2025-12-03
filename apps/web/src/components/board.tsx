@@ -33,10 +33,7 @@ export const Board = () => {
 		orpc.applicationRouter.updateApplication.mutationOptions(),
 	);
 
-	console.log(getApplicationsForStatus(VALID_KAMBAN_TABLES.APPLIED));
-
 	const handleDrop = (appId: string, status: VALID_KAMBAN_TABLES) => {
-		console.log(`Dropped ${appId} to ${status}`);
 		updateApplicationMutation.mutate(
 			{ id: appId, status },
 			{

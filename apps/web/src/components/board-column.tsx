@@ -22,7 +22,6 @@ export const BoardColumn = ({
 
 	const handleDrop = (e: DragEvent) => {
 		e.preventDefault();
-		console.log(e);
 		const appId = e.dataTransfer.getData("applicationId");
 		onDrop(appId, type);
 	};
@@ -41,7 +40,6 @@ export const BoardColumn = ({
 			</div>
 			<div className="space-y-3">
 				{items.map((app) => {
-					console.log(app);
 					return (
 						<div
 							key={app.application.id}
