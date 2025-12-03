@@ -1,7 +1,7 @@
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { formDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
-import { TanStackDevtools } from '@tanstack/react-devtools'
-import { formDevtoolsPlugin } from '@tanstack/react-form-devtools'
 import {
 	createRootRouteWithContext,
 	HeadContent,
@@ -67,14 +67,20 @@ function RootComponent() {
 				</div>
 				<Toaster richColors />
 			</ThemeProvider>
-			
-			<TanStackDevtools plugins={[formDevtoolsPlugin(), {
-			name: "Tanstack Query",
-			render: <ReactQueryDevtoolsPanel />
-			}, {
-			name: "Tanstack Router",
-			render: <TanStackRouterDevtoolsPanel />
-			}]} />
+
+			<TanStackDevtools
+				plugins={[
+					formDevtoolsPlugin(),
+					{
+						name: "Tanstack Query",
+						render: <ReactQueryDevtoolsPanel />,
+					},
+					{
+						name: "Tanstack Router",
+						render: <TanStackRouterDevtoolsPanel />,
+					},
+				]}
+			/>
 		</>
 	);
 }

@@ -1,24 +1,6 @@
 name: jobtrail
 
 services:
-    postgres:
-        image: postgres:17
-        container_name: jobtrail-postgres
-        environment:
-            POSTGRES_DB: jobtrail
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-        ports:
-            - "5432:5432"
-        volumes:
-            - jobtrail_postgres_production_data:/var/lib/postgresql/data
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres -d jobtrail"]
-            interval: 5s
-            timeout: 5s
-            retries: 10
-        restart: unless-stopped
-
     migrations:
         image: ghcr.io/matfire/jobtrail-migrations
         container_name: jobtrail-migrations
@@ -26,7 +8,7 @@ services:
             postgres:
                 condition: service_healthy
         environment:
-            DATABASE_URL: postgresql://postgres:password@postgres:5432/jobtrail
+            DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:password@postgres:5432/jobtrail}
         restart: on-failure
 
     server:
@@ -38,11 +20,9 @@ services:
             migrations:
                 condition: service_completed_successfully
         environment:
-            DATABASE_URL: postgresql://postgres:password@postgres:5432/jobtrail
+            DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:password@postgres:5432/jobtrail}
             BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-change-me-in-production}
             BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
-            POLAR_ACCESS_TOKEN: ${POLAR_ACCESS_TOKEN:-}
-            POLAR_SUCCESS_URL: ${POLAR_SUCCESS_URL:-}
             CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3001}
             PORT: 3000
         ports:
