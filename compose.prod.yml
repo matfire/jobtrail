@@ -12,8 +12,6 @@ services:
         image: ghcr.io/matfire/jobtrail-server
         container_name: jobtrail-server
         depends_on:
-            postgres:
-                condition: service_healthy
             migrations:
                 condition: service_completed_successfully
         environment:
