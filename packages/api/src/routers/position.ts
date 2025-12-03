@@ -24,6 +24,7 @@ const getAvailablePositions = protectedProcedure
 
 const createPositionInput = z.object({
 	name: z.string(),
+	color: z.hex()
 });
 
 const createPositionOutput = z.object({
@@ -42,7 +43,6 @@ const createPosition = protectedProcedure
 				.values({
 					userId: context.session.user.id,
 					...input,
-					color: generateRandomColor.hex(),
 				})
 				.returning()
 		).at(0);

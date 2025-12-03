@@ -28,6 +28,7 @@ import {
 import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { AddRoleDialog } from "./add-role-dialog";
 
 const formSchema = z.object({
 	company: z.string().min(1),
@@ -52,6 +53,11 @@ export const AddApplicationDialog = () => {
 	const [roleOpen, setRoleOpen] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [dateOpen, setDateOpen] = useState(false);
+	const [addRoleOpen, setAddRoleOpen] = useState(false)
+
+	const handleRoleCreated = (roleId) => {
+	  form.setFieldValue("role", roleId)
+	}
 
 	const form = useForm({
 		validators: {
@@ -101,6 +107,8 @@ export const AddApplicationDialog = () => {
 	});
 
 	return (
+	<>
+	  <AddRoleDialog open={addRoleOpen} setOpen={setAddRoleOpen} onRoleCreated={handleRoleCreated} />
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button>Add Application</Button>
@@ -172,7 +180,8 @@ export const AddApplicationDialog = () => {
 														<CommandList>
 															<CommandEmpty>
 																<div className="p-2 text-sm">
-																	Press Enter to create "{field.state.value}"
+																	{field.state.value} not found
+																	<Button onClick={() => setAddRoleOpen(true)}>Create it</Button>
 																</div>
 															</CommandEmpty>
 															<CommandGroup>
@@ -285,5 +294,6 @@ export const AddApplicationDialog = () => {
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
+	</>
 	);
 };
