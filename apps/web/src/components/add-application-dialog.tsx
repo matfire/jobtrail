@@ -1,6 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronDownIcon, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import z from "zod";
 import { cn } from "@/lib/utils";
@@ -27,6 +27,7 @@ import {
 import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Calendar } from "./ui/calendar";
 
 const formSchema = z.object({
 	company: z.string().min(1),
@@ -50,6 +51,7 @@ export const AddApplicationDialog = () => {
 
 	const [roleOpen, setRoleOpen] = useState(false);
 	const [open, setOpen] = useState(false);
+    const [dateOpen, setDateOpen] = useState(false);
 
 	const form = useForm({
 		validators: {
@@ -60,6 +62,7 @@ export const AddApplicationDialog = () => {
 		  role: "",
 				company: "",
 				jobLink: "",
+				submittedAt: new Date()
 		},
 		onSubmit: async ({value}) => {
 			console.log(value);
@@ -80,6 +83,7 @@ export const AddApplicationDialog = () => {
 							companyName: company,
 							positionId: selectedRole,
 							postUrl: jobLink,
+							submittedAt
 						},
 						{
 							onSuccess: async () => {
@@ -218,6 +222,33 @@ export const AddApplicationDialog = () => {
 												{isInvalid && <FieldError errors={field.state.meta.errors} />}
 										</Field>
 										)
+								}}
+								/>
+						</FieldGroup>
+						<FieldGroup>
+						  <form.Field
+							 name="submittedAt"
+								children={(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor={field.name}>Submitted At</FieldLabel>
+                      <Popover open={dateOpen} onOpenChange={setDateOpen}>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline">
+                            {field.state.value ? field.state.value.toLocaleDateString() : "Select Date"}
+                            <ChevronDownIcon />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto overflow-hidden p-0">
+                          <Calendar mode="single" selected={field.state.value} captionLayout="dropdown" onSelect={(date) => {
+                            field.handleChange(date ?? new Date())
+                            setDateOpen(false)
+                          }} />
+                        </PopoverContent>
+                      </Popover>
+                    </Field>
+                  )
 								}}
 								/>
 						</FieldGroup>

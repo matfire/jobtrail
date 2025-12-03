@@ -178,6 +178,9 @@ importers:
       cmdk:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       dayjs:
         specifier: ^1.11.19
         version: 1.11.19
@@ -193,6 +196,9 @@ importers:
       react:
         specifier: 19.1.0
         version: 19.1.0
+      react-day-picker:
+        specifier: ^9.11.3
+        version: 9.11.3(react@19.1.0)
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
@@ -3132,8 +3138,8 @@ packages:
       '@types/react-dom':
         optional: true
 
-  react-day-picker@9.11.2:
-    resolution: {integrity: sha512-TD/xMUGg2oiKX8jUR21MST5pj+7Y36097YtnDHQFlIcZOu3mbLLw2B2JqEByEGrR3HHveWYnKlyls6WqJgohAg==}
+  react-day-picker@9.11.3:
+    resolution: {integrity: sha512-7lD12UvGbkyXqgzbYIGQTbl+x29B9bAf+k0pP5Dcs1evfpKk6zv4EdH/edNc8NxcmCiTNXr2HIYPrSZ3XvmVBg==}
     engines: {node: '>=18'}
     peerDependencies:
       react: '>=16.8.0'
@@ -4355,7 +4361,7 @@ snapshots:
       input-otp: 1.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       lucide-react: 0.547.0(react@19.1.0)
       react: 19.1.0
-      react-day-picker: 9.11.2(react@19.1.0)
+      react-day-picker: 9.11.3(react@19.1.0)
       react-dom: 19.1.0(react@19.1.0)
       react-hook-form: 7.66.1(react@19.1.0)
       react-timeago: 8.3.0(react@19.1.0)
@@ -6348,7 +6354,7 @@ snapshots:
       '@types/react': 19.1.17
       '@types/react-dom': 19.2.3(@types/react@19.1.17)
 
-  react-day-picker@9.11.2(react@19.1.0):
+  react-day-picker@9.11.3(react@19.1.0):
     dependencies:
       '@date-fns/tz': 1.4.1
       date-fns: 4.1.0
