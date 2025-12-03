@@ -52,11 +52,6 @@ services:
         ports:
             - "3000:3000"
         restart: unless-stopped
-        healthcheck:
-            test: curl --fail -s http://localhost:3000 || exit 1
-            interval: 10s
-            retries: 10
-            timeout: 10s
 
 volumes:
     jobtrail_postgres_production_data:
