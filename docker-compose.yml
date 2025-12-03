@@ -43,7 +43,7 @@ services:
                 condition: service_completed_successfully
         environment:
             DATABASE_URL: postgresql://postgres:password@postgres:5432/jobtrail
-            BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-change-me-in-production}
+            BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-BSSfwJMM92PbbvJ4oOfunZY4K0QvCrkxRpkT0BIj6LM=}
             BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
             POLAR_ACCESS_TOKEN: ${POLAR_ACCESS_TOKEN:-}
             POLAR_SUCCESS_URL: ${POLAR_SUCCESS_URL:-}
@@ -52,6 +52,11 @@ services:
         ports:
             - "3000:3000"
         restart: unless-stopped
+        healthcheck:
+            test: curl --fail -s http://localhost:3000 || exit 1
+            interval: 10s
+            retries: 10
+            timeout: 10s
 
 volumes:
     jobtrail_postgres_production_data:
