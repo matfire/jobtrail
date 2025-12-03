@@ -2,14 +2,18 @@ name: jobtrail
 
 services:
     migrations:
-        image: ghcr.io/matfire/jobtrail-migrations
+        build:
+            context: .
+            dockerfile: packages/db/Dockerfile.migrations
         container_name: jobtrail-migrations
         environment:
             DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:password@postgres:5432/jobtrail}
         restart: on-failure
 
     server:
-        image: ghcr.io/matfire/jobtrail-server
+        build:
+            context: .
+            dockerfile: apps/server/Dockerfile
         container_name: jobtrail-server
         depends_on:
             migrations:
