@@ -6,6 +6,7 @@ import z from "zod";
 import { cn } from "@/lib/utils";
 import { orpc } from "@/utils/orpc";
 import { Button } from "./ui/button";
+import { Calendar } from "./ui/calendar";
 import {
 	Command,
 	CommandEmpty,
@@ -27,7 +28,6 @@ import {
 import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Calendar } from "./ui/calendar";
 
 const formSchema = z.object({
 	company: z.string().min(1),
@@ -51,50 +51,52 @@ export const AddApplicationDialog = () => {
 
 	const [roleOpen, setRoleOpen] = useState(false);
 	const [open, setOpen] = useState(false);
-    const [dateOpen, setDateOpen] = useState(false);
+	const [dateOpen, setDateOpen] = useState(false);
 
 	const form = useForm({
 		validators: {
 			onSubmit: formSchema,
-			onChange: formSchema
+			onChange: formSchema,
 		},
 		defaultValues: {
-		  role: "",
-				company: "",
-				jobLink: "",
-				submittedAt: new Date()
+			role: "",
+			company: "",
+			jobLink: "",
+			submittedAt: new Date(),
 		},
-		onSubmit: async ({value}) => {
+		onSubmit: async ({ value }) => {
 			console.log(value);
-			const {role, company, jobLink, submittedAt} = value
-				let selectedRole = role;
-					const foundPosition = availablePositions?.data.find(
-						(position) => position.name === role,
-					);
-					if (!foundPosition) {
-						const position = await createPositionMutation.mutateAsync({ name: role });
-						selectedRole = position.id;
-					} else {
-						selectedRole = foundPosition.id;
-					}
+			const { role, company, jobLink, submittedAt } = value;
+			let selectedRole = role;
+			const foundPosition = availablePositions?.data.find(
+				(position) => position.name === role,
+			);
+			if (!foundPosition) {
+				const position = await createPositionMutation.mutateAsync({
+					name: role,
+				});
+				selectedRole = position.id;
+			} else {
+				selectedRole = foundPosition.id;
+			}
 
-					createApplicationMutation.mutate(
-						{
-							companyName: company,
-							positionId: selectedRole,
-							postUrl: jobLink,
-							submittedAt
-						},
-						{
-							onSuccess: async () => {
-								await queryClient.invalidateQueries({
-									queryKey: orpc.applicationRouter.getApplications.key(),
-								});
-								setOpen(false);
-								form.reset()
-							},
-						},
-					);
+			createApplicationMutation.mutate(
+				{
+					companyName: company,
+					positionId: selectedRole,
+					postUrl: jobLink,
+					submittedAt,
+				},
+				{
+					onSuccess: async () => {
+						await queryClient.invalidateQueries({
+							queryKey: orpc.applicationRouter.getApplications.key(),
+						});
+						setOpen(false);
+						form.reset();
+					},
+				},
+			);
 		},
 	});
 
@@ -131,7 +133,9 @@ export const AddApplicationDialog = () => {
 												onBlur={field.handleBlur}
 												placeholder="Company name"
 											/>
-											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+											{isInvalid && (
+												<FieldError errors={field.state.meta.errors} />
+											)}
 										</Field>
 									);
 								}}
@@ -203,54 +207,71 @@ export const AddApplicationDialog = () => {
 													</Command>
 												</PopoverContent>
 											</Popover>
-											{isInvalid && <FieldError errors={field.state.meta.errors} />}
+											{isInvalid && (
+												<FieldError errors={field.state.meta.errors} />
+											)}
 										</Field>
 									);
 								}}
 							/>
 						</FieldGroup>
 						<FieldGroup>
-						  <form.Field name="jobLink"
+							<form.Field
+								name="jobLink"
 								children={(field) => {
-								const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-								  return (
+									const isInvalid =
+										field.state.meta.isTouched && !field.state.meta.isValid;
+									return (
 										<Field data-invalid={isInvalid}>
-										  <FieldLabel htmlFor={field.name}>Job Link</FieldLabel>
-												<Input value={field.state.value}
+											<FieldLabel htmlFor={field.name}>Job Link</FieldLabel>
+											<Input
+												value={field.state.value}
 												onChange={(e) => field.handleChange(e.target.value)}
-												onBlur={field.handleBlur} placeholder="Job link" />
-												{isInvalid && <FieldError errors={field.state.meta.errors} />}
+												onBlur={field.handleBlur}
+												placeholder="Job link"
+											/>
+											{isInvalid && (
+												<FieldError errors={field.state.meta.errors} />
+											)}
 										</Field>
-										)
+									);
 								}}
-								/>
+							/>
 						</FieldGroup>
 						<FieldGroup>
-						  <form.Field
-							 name="submittedAt"
+							<form.Field
+								name="submittedAt"
 								children={(field) => {
-                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Submitted At</FieldLabel>
-                      <Popover open={dateOpen} onOpenChange={setDateOpen}>
-                        <PopoverTrigger asChild>
-                          <Button variant="outline">
-                            {field.state.value ? field.state.value.toLocaleDateString() : "Select Date"}
-                            <ChevronDownIcon />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto overflow-hidden p-0">
-                          <Calendar mode="single" selected={field.state.value} captionLayout="dropdown" onSelect={(date) => {
-                            field.handleChange(date ?? new Date())
-                            setDateOpen(false)
-                          }} />
-                        </PopoverContent>
-                      </Popover>
-                    </Field>
-                  )
+									const isInvalid =
+										field.state.meta.isTouched && !field.state.meta.isValid;
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>Submitted At</FieldLabel>
+											<Popover open={dateOpen} onOpenChange={setDateOpen}>
+												<PopoverTrigger asChild>
+													<Button variant="outline">
+														{field.state.value
+															? field.state.value.toLocaleDateString()
+															: "Select Date"}
+														<ChevronDownIcon />
+													</Button>
+												</PopoverTrigger>
+												<PopoverContent className="w-auto overflow-hidden p-0">
+													<Calendar
+														mode="single"
+														selected={field.state.value}
+														captionLayout="dropdown"
+														onSelect={(date) => {
+															field.handleChange(date ?? new Date());
+															setDateOpen(false);
+														}}
+													/>
+												</PopoverContent>
+											</Popover>
+										</Field>
+									);
 								}}
-								/>
+							/>
 						</FieldGroup>
 						<div className="flex justify-end gap-2">
 							<Button type="submit">Add Application</Button>

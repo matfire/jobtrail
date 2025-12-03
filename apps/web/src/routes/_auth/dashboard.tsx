@@ -13,8 +13,6 @@ export const Route = createFileRoute("/_auth/dashboard")({
 });
 
 function RouteComponent() {
-
-
 	return (
 		<div>
 			<AddApplicationDialog />

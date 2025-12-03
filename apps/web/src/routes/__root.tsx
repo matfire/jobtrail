@@ -67,6 +67,7 @@ function RootComponent() {
 				</div>
 				<Toaster richColors />
 			</ThemeProvider>
+			
 			<TanStackDevtools plugins={[formDevtoolsPlugin(), {
 			name: "Tanstack Query",
 			render: <ReactQueryDevtoolsPanel />
