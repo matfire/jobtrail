@@ -56,6 +56,7 @@ export const NotesDialog = ({ applicationId }: NotesDialogProps) => {
 			<DialogTrigger asChild>
 				<Button variant="ghost">
 					<Notebook />
+					Add/View Notes
 				</Button>
 			</DialogTrigger>
 			<DialogContent>

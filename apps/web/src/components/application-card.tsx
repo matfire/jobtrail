@@ -3,12 +3,13 @@ import type { Position } from "@jobtrail/api/schemas/position";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import { Trash2 } from "lucide-react";
+import { EllipsisVertical, Trash2 } from "lucide-react";
 import { orpc } from "@/utils/orpc";
 import { NotesDialog } from "./notes-dialog";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle } from "./ui/card";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 dayjs.extend(localizedFormat);
 
@@ -73,15 +74,28 @@ export const ApplicationCard = ({
 							</div>
 						</div>
 					</div>
-					<NotesDialog applicationId={application.id} />
+					<DropdownMenu modal={false}>
+					  <DropdownMenuTrigger asChild>
+							<Button variant="secondary"><EllipsisVertical /></Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent className="w-40" align="end">
+							  <DropdownMenuItem asChild>
+									  <NotesDialog applicationId={application.id} />
+									</DropdownMenuItem>
+									<DropdownMenuItem asChild>
+
 					<Button
 						variant="ghost"
 						size="icon"
-						className="h-8 w-8 text-destructive hover:text-destructive"
+						className="h-8 w-full text-destructive hover:text-destructive"
 						onClick={() => deleteApplication(application.id)}
 					>
 						<Trash2 className="h-4 w-4" />
+						Delete application
 					</Button>
+									</DropdownMenuItem>
+							</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 			</CardHeader>
 		</Card>

@@ -8,10 +8,10 @@ export const Route = createFileRoute("/_auth/dashboard")({
 
 function RouteComponent() {
 	return (
-		<div>
+		<div className="h-full">
 			<AddApplicationDialog />
 
-			<div className="h-full max-h-[80%] w-full">
+			<div className="w-full">
 				<Board />
 			</div>
 		</div>
