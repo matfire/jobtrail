@@ -9,7 +9,12 @@ import { NotesDialog } from "./notes-dialog";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle } from "./ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 dayjs.extend(localizedFormat);
 
@@ -75,26 +80,27 @@ export const ApplicationCard = ({
 						</div>
 					</div>
 					<DropdownMenu modal={false}>
-					  <DropdownMenuTrigger asChild>
-							<Button variant="secondary"><EllipsisVertical /></Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent className="w-40" align="end">
-							  <DropdownMenuItem asChild>
-									  <NotesDialog applicationId={application.id} />
-									</DropdownMenuItem>
-									<DropdownMenuItem asChild>
-
-					<Button
-						variant="ghost"
-						size="icon"
-						className="h-8 w-full text-destructive hover:text-destructive"
-						onClick={() => deleteApplication(application.id)}
-					>
-						<Trash2 className="h-4 w-4" />
-						Delete application
-					</Button>
-									</DropdownMenuItem>
-							</DropdownMenuContent>
+						<DropdownMenuTrigger asChild>
+							<Button variant="secondary">
+								<EllipsisVertical />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent className="w-40" align="end">
+							<DropdownMenuItem asChild>
+								<NotesDialog applicationId={application.id} />
+							</DropdownMenuItem>
+							<DropdownMenuItem asChild>
+								<Button
+									variant="ghost"
+									size="icon"
+									className="h-8 w-full text-destructive hover:text-destructive"
+									onClick={() => deleteApplication(application.id)}
+								>
+									<Trash2 className="h-4 w-4" />
+									Delete application
+								</Button>
+							</DropdownMenuItem>
+						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
 			</CardHeader>

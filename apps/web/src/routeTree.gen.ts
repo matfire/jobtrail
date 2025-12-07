@@ -14,6 +14,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthStatsRouteImport } from './routes/_auth/stats'
+import { Route as AuthPositionsRouteImport } from './routes/_auth/positions'
 import { Route as AuthDashboardRouteImport } from './routes/_auth/dashboard'
 
 const SuccessRoute = SuccessRouteImport.update({
@@ -40,6 +41,11 @@ const AuthStatsRoute = AuthStatsRouteImport.update({
   path: '/stats',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthPositionsRoute = AuthPositionsRouteImport.update({
+  id: '/positions',
+  path: '/positions',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthDashboardRoute = AuthDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/success': typeof SuccessRoute
   '/dashboard': typeof AuthDashboardRoute
+  '/positions': typeof AuthPositionsRoute
   '/stats': typeof AuthStatsRoute
 }
 export interface FileRoutesByTo {
@@ -58,6 +65,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/success': typeof SuccessRoute
   '/dashboard': typeof AuthDashboardRoute
+  '/positions': typeof AuthPositionsRoute
   '/stats': typeof AuthStatsRoute
 }
 export interface FileRoutesById {
@@ -67,13 +75,20 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/success': typeof SuccessRoute
   '/_auth/dashboard': typeof AuthDashboardRoute
+  '/_auth/positions': typeof AuthPositionsRoute
   '/_auth/stats': typeof AuthStatsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/success' | '/dashboard' | '/stats'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/success'
+    | '/dashboard'
+    | '/positions'
+    | '/stats'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/success' | '/dashboard' | '/stats'
+  to: '/' | '/login' | '/success' | '/dashboard' | '/positions' | '/stats'
   id:
     | '__root__'
     | '/'
@@ -81,6 +96,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/success'
     | '/_auth/dashboard'
+    | '/_auth/positions'
     | '/_auth/stats'
   fileRoutesById: FileRoutesById
 }
@@ -128,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthStatsRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/positions': {
+      id: '/_auth/positions'
+      path: '/positions'
+      fullPath: '/positions'
+      preLoaderRoute: typeof AuthPositionsRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/dashboard': {
       id: '/_auth/dashboard'
       path: '/dashboard'
@@ -140,11 +163,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthRouteChildren {
   AuthDashboardRoute: typeof AuthDashboardRoute
+  AuthPositionsRoute: typeof AuthPositionsRoute
   AuthStatsRoute: typeof AuthStatsRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthDashboardRoute: AuthDashboardRoute,
+  AuthPositionsRoute: AuthPositionsRoute,
   AuthStatsRoute: AuthStatsRoute,
 }
 

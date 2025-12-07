@@ -10,23 +10,23 @@
 		"start": "node dist/index.js"
 	},
 	"dependencies": {
-		"hono": "catalog:",
-		"@hono/node-server": "^1.14.4",
-		"@orpc/server": "catalog:",
+		"@hono/node-server": "^1.19.6",
+		"@jobtrail/api": "workspace:*",
+		"@jobtrail/auth": "workspace:*",
+		"@jobtrail/db": "workspace:*",
 		"@orpc/openapi": "catalog:",
+		"@orpc/server": "catalog:",
 		"@orpc/zod": "catalog:",
 		"better-auth": "catalog:",
 		"dotenv": "catalog:",
-		"zod": "^4.1.11",
-		"@jobtrail/api": "workspace:*",
-		"@jobtrail/auth": "workspace:*",
-		"@jobtrail/db": "workspace:*"
+		"hono": "catalog:",
+		"zod": "^4.1.13"
 	},
 	"devDependencies": {
-		"typescript": "^5.8.2",
-		"tsx": "^4.19.2",
-		"@types/node": "^22.13.11",
-		"tsdown": "^0.16.5",
-		"@jobtrail/config": "workspace:*"
+		"@jobtrail/config": "workspace:*",
+		"@types/node": "^22.19.1",
+		"tsdown": "^0.16.8",
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3"
 	}
 }

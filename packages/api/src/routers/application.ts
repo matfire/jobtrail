@@ -61,6 +61,7 @@ const updateApplicationInputSchema = z.object({
 	companyName: z.string().optional(),
 	postUrl: z.string().optional(),
 	status: z.enum(VALID_KAMBAN_TABLES).optional(),
+	positionId: z.string().nullable(),
 });
 
 const updateApplication = protectedProcedure
