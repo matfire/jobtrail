@@ -67,23 +67,11 @@ export const AddApplicationDialog = () => {
 		onSubmit: async ({ value }) => {
 			console.log(value);
 			const { role, company, jobLink, submittedAt } = value;
-			let selectedRole = role;
-			const foundPosition = availablePositions?.data.find(
-				(position) => position.name === role,
-			);
-			if (!foundPosition) {
-				const position = await createPositionMutation.mutateAsync({
-					name: role,
-				});
-				selectedRole = position.id;
-			} else {
-				selectedRole = foundPosition.id;
-			}
 
 			createApplicationMutation.mutate(
 				{
 					companyName: company,
-					positionId: selectedRole,
+					positionId: role,
 					postUrl: jobLink,
 					submittedAt,
 				},

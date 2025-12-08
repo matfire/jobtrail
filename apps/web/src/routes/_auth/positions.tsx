@@ -1,7 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import {
 	Table,
 	TableBody,
@@ -17,12 +26,14 @@ export const Route = createFileRoute("/_auth/positions")({
 });
 
 function RouteComponent() {
+	const [editOpen, setEditOpen] = useState(false);
+	const [selectedId, setSelectedId] = useState<string | null>(null);
 	const queryClient = useQueryClient();
 	const { data } = useQuery(
 		orpc.positionRouter.getAvailablePositions.queryOptions(),
 	);
 	const deletePositionMutation = useMutation(
-		orpc.positionRouter.deletePosition.mutationOptions(Route),
+		orpc.positionRouter.deletePosition.mutationOptions(),
 	);
 
 	const handlePositionDelete = (id: string) => {
@@ -40,6 +51,22 @@ function RouteComponent() {
 
 	return (
 		<div>
+			<Dialog open={editOpen} onOpenChange={() => {
+	  setEditOpen(false)
+			setSelectedId(null)
+			}}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>Edit Position</DialogTitle>
+					</DialogHeader>
+					<div></div>
+					<DialogFooter>
+						<DialogClose asChild>
+							<Button variant="secondary">Close</Button>
+						</DialogClose>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
 			<Table>
 				<TableHeader>
 					<TableRow>
@@ -61,6 +88,12 @@ function RouteComponent() {
 									}}
 								>
 									<Trash2 />
+								</Button>
+								<Button variant="secondary" onClick={() => {
+						  setSelectedId(position.id)
+								setEditOpen(true)
+								}}>
+								  <Pencil />
 								</Button>
 							</TableCell>
 						</TableRow>
