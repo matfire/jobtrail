@@ -1,13 +1,13 @@
+import type { Application } from "@jobtrail/api/schemas/application";
 import { useForm } from "@tanstack/react-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, ChevronDownIcon, ChevronsUpDown, Plus } from "lucide-react";
+import { ChevronDownIcon, Plus } from "lucide-react";
 import { useState } from "react";
 import z from "zod";
 import { orpc } from "@/utils/orpc";
 import { AddPositionDialog } from "./add-position-dialog";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
-
 import {
 	Dialog,
 	DialogClose,
@@ -16,7 +16,6 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from "./ui/dialog";
 import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
@@ -32,24 +31,35 @@ import {
 const formSchema = z.object({
 	company: z.string().nonempty(),
 	role: z.string().nonempty(),
-	jobLink: z.string().nullish(),
-	submittedAt: z.date().optional(),
+	jobLink: z.string().optional(),
+	submittedAt: z.date().default(new Date()),
 });
 
-export const AddApplicationDialog = () => {
+interface ApplicationDialogProps {
+	application?: Application;
+	open: boolean;
+	setOpen: (v: boolean) => void;
+}
+
+export const ApplicationDialog = ({
+	application,
+	open,
+	setOpen,
+}: ApplicationDialogProps) => {
 	const createApplicationMutation = useMutation(
 		orpc.applicationRouter.createApplication.mutationOptions(),
 	);
-	const createPositionMutation = useMutation(
-		orpc.positionRouter.createPosition.mutationOptions(),
+
+	const updateApplicationMutation = useMutation(
+		orpc.applicationRouter.updateApplication.mutationOptions(),
 	);
+
 	const { data: availablePositions } = useQuery(
 		orpc.positionRouter.getAvailablePositions.queryOptions(),
 	);
 
 	const queryClient = useQueryClient();
 
-	const [open, setOpen] = useState(false);
 	const [dateOpen, setDateOpen] = useState(false);
 	const [createRoleOpen, setCreateRoleOpen] = useState(false);
 
@@ -59,32 +69,52 @@ export const AddApplicationDialog = () => {
 			onChange: formSchema,
 		},
 		defaultValues: {
-			role: "",
-			company: "",
-			jobLink: "",
-			submittedAt: new Date(),
+			role: application?.positionId ?? null,
+			company: application?.companyName ?? "",
+			jobLink: application?.postUrl,
+			submittedAt: application?.submittedAt ?? new Date(),
 		},
 		onSubmit: async ({ value }) => {
-			console.log(value);
 			const { role, company, jobLink, submittedAt } = value;
 
-			createApplicationMutation.mutate(
-				{
-					companyName: company,
-					positionId: role,
-					postUrl: jobLink,
-					submittedAt,
-				},
-				{
-					onSuccess: async () => {
-						await queryClient.invalidateQueries({
-							queryKey: orpc.applicationRouter.getApplications.key(),
-						});
-						setOpen(false);
-						form.reset();
+			if (!application) {
+				createApplicationMutation.mutate(
+					{
+						companyName: company,
+						positionId: role,
+						postUrl: jobLink,
+						submittedAt,
 					},
-				},
-			);
+					{
+						onSuccess: async () => {
+							await queryClient.invalidateQueries({
+								queryKey: orpc.applicationRouter.getApplications.key(),
+							});
+							setOpen(false);
+							form.reset();
+						},
+					},
+				);
+			} else {
+				updateApplicationMutation.mutate(
+					{
+						id: application.id,
+						companyName: company,
+						positionId: role,
+						postUrl: jobLink ?? undefined,
+						submittedAt,
+					},
+					{
+						onSuccess: async () => {
+							await queryClient.invalidateQueries({
+								queryKey: orpc.applicationRouter.getApplications.key(),
+							});
+							setOpen(false);
+							form.reset();
+						},
+					},
+				);
+			}
 		},
 	});
 
@@ -95,9 +125,6 @@ export const AddApplicationDialog = () => {
 	return (
 		<>
 			<Dialog open={open} onOpenChange={setOpen}>
-				<DialogTrigger asChild>
-					<Button>Add Application</Button>
-				</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>
 						<DialogTitle>Add a new Application</DialogTitle>

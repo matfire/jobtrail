@@ -51,15 +51,18 @@ function RouteComponent() {
 
 	return (
 		<div>
-			<Dialog open={editOpen} onOpenChange={() => {
-	  setEditOpen(false)
-			setSelectedId(null)
-			}}>
+			<Dialog
+				open={editOpen}
+				onOpenChange={() => {
+					setEditOpen(false);
+					setSelectedId(null);
+				}}
+			>
 				<DialogContent>
 					<DialogHeader>
 						<DialogTitle>Edit Position</DialogTitle>
 					</DialogHeader>
-					<div></div>
+					<div />
 					<DialogFooter>
 						<DialogClose asChild>
 							<Button variant="secondary">Close</Button>
@@ -89,11 +92,14 @@ function RouteComponent() {
 								>
 									<Trash2 />
 								</Button>
-								<Button variant="secondary" onClick={() => {
-						  setSelectedId(position.id)
-								setEditOpen(true)
-								}}>
-								  <Pencil />
+								<Button
+									variant="secondary"
+									onClick={() => {
+										setSelectedId(position.id);
+										setEditOpen(true);
+									}}
+								>
+									<Pencil />
 								</Button>
 							</TableCell>
 						</TableRow>
