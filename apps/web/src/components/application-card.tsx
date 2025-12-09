@@ -3,7 +3,7 @@ import type { Position } from "@jobtrail/api/schemas/position";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import { EllipsisVertical, Pen, Trash2 } from "lucide-react";
+import { Clipboard, EllipsisVertical, Globe, Pen, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { orpc } from "@/utils/orpc";
 import { ApplicationDialog } from "./application-dialog";
@@ -46,6 +46,13 @@ export const ApplicationCard = ({
 			},
 		);
 	};
+
+	const handlePostOpen = () => {
+	if (!application.postUrl) {
+	return
+	}
+	  window.open(application.postUrl)
+	}
 
 	return (
 		<>
@@ -96,10 +103,17 @@ export const ApplicationCard = ({
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="w-40" align="end">
 								<DropdownMenuItem asChild>
-									<Button onClick={() => setEditOpen(true)}>
-										<Pen />
+									<Button variant="ghost" className="w-full h-8" onClick={() => setEditOpen(true)}>
+										<Pen className="h-4 w-4"/>
+										Edit application
 									</Button>
 								</DropdownMenuItem>
+								{application.postUrl && <DropdownMenuItem asChild>
+								  <Button variant="ghost" className="w-full h-8" onClick={handlePostOpen}>
+										<Globe className="h-4 w-4" />
+										Open Job Link
+									</Button>
+								</DropdownMenuItem>}
 								<DropdownMenuItem asChild>
 									<NotesDialog applicationId={application.id} />
 								</DropdownMenuItem>
