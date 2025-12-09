@@ -76,14 +76,12 @@ export const ApplicationDialog = ({
 		},
 		onSubmit: async ({ value }) => {
 			const { role, company, jobLink, submittedAt } = value;
-			console.log(value)
 
-	  if (!role) {
-                  return;
+			if (!role) {
+				return;
 			}
 
 			if (!application) {
-
 				createApplicationMutation.mutate(
 					{
 						companyName: company,
@@ -97,7 +95,7 @@ export const ApplicationDialog = ({
 								queryKey: orpc.applicationRouter.getApplications.key(),
 							});
 							setOpen(false);
-							form.reset()
+							form.reset();
 						},
 					},
 				);
@@ -116,7 +114,7 @@ export const ApplicationDialog = ({
 								queryKey: orpc.applicationRouter.getApplications.key(),
 							});
 							setOpen(false);
-							form.reset()
+							form.reset();
 						},
 					},
 				);
@@ -137,14 +135,14 @@ export const ApplicationDialog = ({
 						<DialogDescription />
 					</DialogHeader>
 
-					<form 							className="space-y-4"
-					onSubmit={(e) => {
-						e.preventDefault();
-						form.handleSubmit();
-					}}
-				>
-					<div className="flex flex-col">
-
+					<form
+						className="space-y-4"
+						onSubmit={(e) => {
+							e.preventDefault();
+							form.handleSubmit();
+						}}
+					>
+						<div className="flex flex-col">
 							<FieldGroup>
 								<form.Field
 									name="company"
@@ -271,17 +269,17 @@ export const ApplicationDialog = ({
 									}}
 								/>
 							</FieldGroup>
-							<div className="flex justify-end gap-2">
-							</div>
-					</div>
-					<DialogFooter>
-						<DialogClose asChild>
-							<Button variant="outline">Cancel</Button>
-						</DialogClose>
+							<div className="flex justify-end gap-2"></div>
+						</div>
+						<DialogFooter>
+							<DialogClose asChild>
+								<Button variant="outline">Cancel</Button>
+							</DialogClose>
 
-						<Button type="submit">{application ? "Update" : "Add"} Application</Button>
-					</DialogFooter>
-
+							<Button type="submit">
+								{application ? "Update" : "Add"} Application
+							</Button>
+						</DialogFooter>
 					</form>
 				</DialogContent>
 			</Dialog>

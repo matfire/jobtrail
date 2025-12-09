@@ -16,7 +16,9 @@ function RouteComponent() {
 				open={createApplicationOpen}
 				setOpen={setCreateApplicationOpen}
 			/>
-			<Button onClick={() => setCreateApplicationOpen(true)}>Add application</Button>
+			<Button onClick={() => setCreateApplicationOpen(true)}>
+				Add application
+			</Button>
 			<div className="w-full">
 				<Board />
 			</div>
