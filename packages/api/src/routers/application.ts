@@ -26,8 +26,8 @@ const getApplications = protectedProcedure
 
 const createApplicationInputSchema = z.object({
 	companyName: z.string(),
-	postUrl: z.string().nullish(),
-	positionId: z.string().nullable(),
+	postUrl: z.string().optional(),
+	positionId: z.string().optional(),
 	submittedAt: z.date().optional(),
 });
 
@@ -61,15 +61,15 @@ const updateApplicationInputSchema = z.object({
 	companyName: z.string().optional(),
 	postUrl: z.string().optional(),
 	status: z.enum(VALID_KAMBAN_TABLES).optional(),
-	positionId: z.string().nullable(),
-	submittedAt: z.date(),
+	positionId: z.string().optional(),
+	submittedAt: z.date().optional(),
 });
 
 const updateApplication = protectedProcedure
 	.input(updateApplicationInputSchema)
 	.output(ApplicationSchema)
 	.handler(async ({ context, input }) => {
-		const { id, companyName, postUrl, status, submittedAt } = input;
+		const { id, companyName, postUrl, status, submittedAt, positionId } = input;
 		//TODO check if user is owner of application
 		const updatedApplication = (
 			await db
@@ -79,6 +79,7 @@ const updateApplication = protectedProcedure
 					postUrl,
 					status,
 					submittedAt,
+					positionId,
 				})
 				.where(eq(application.id, id))
 				.returning()

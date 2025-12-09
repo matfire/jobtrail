@@ -69,15 +69,21 @@ export const ApplicationDialog = ({
 			onChange: formSchema,
 		},
 		defaultValues: {
-			role: application?.positionId ?? null,
+			role: application?.positionId,
 			company: application?.companyName ?? "",
-			jobLink: application?.postUrl,
+			jobLink: application?.postUrl ?? "",
 			submittedAt: application?.submittedAt ?? new Date(),
 		},
 		onSubmit: async ({ value }) => {
 			const { role, company, jobLink, submittedAt } = value;
+			console.log(value)
+
+	  if (!role) {
+                  return;
+			}
 
 			if (!application) {
+
 				createApplicationMutation.mutate(
 					{
 						companyName: company,
@@ -91,7 +97,7 @@ export const ApplicationDialog = ({
 								queryKey: orpc.applicationRouter.getApplications.key(),
 							});
 							setOpen(false);
-							form.reset();
+							form.reset()
 						},
 					},
 				);
@@ -101,7 +107,7 @@ export const ApplicationDialog = ({
 						id: application.id,
 						companyName: company,
 						positionId: role,
-						postUrl: jobLink ?? undefined,
+						postUrl: jobLink,
 						submittedAt,
 					},
 					{
@@ -110,7 +116,7 @@ export const ApplicationDialog = ({
 								queryKey: orpc.applicationRouter.getApplications.key(),
 							});
 							setOpen(false);
-							form.reset();
+							form.reset()
 						},
 					},
 				);
@@ -130,14 +136,15 @@ export const ApplicationDialog = ({
 						<DialogTitle>Add a new Application</DialogTitle>
 						<DialogDescription />
 					</DialogHeader>
+
+					<form 							className="space-y-4"
+					onSubmit={(e) => {
+						e.preventDefault();
+						form.handleSubmit();
+					}}
+				>
 					<div className="flex flex-col">
-						<form
-							className="space-y-4"
-							onSubmit={(e) => {
-								e.preventDefault();
-								form.handleSubmit();
-							}}
-						>
+
 							<FieldGroup>
 								<form.Field
 									name="company"
@@ -172,7 +179,7 @@ export const ApplicationDialog = ({
 												<FieldLabel htmlFor={field.name}>Role *</FieldLabel>
 												<div className="flex gap-1">
 													<Select
-														value={field.state.value}
+														value={field.state.value ?? ""}
 														onValueChange={(value) => field.handleChange(value)}
 													>
 														<SelectTrigger className="w-full">
@@ -265,15 +272,17 @@ export const ApplicationDialog = ({
 								/>
 							</FieldGroup>
 							<div className="flex justify-end gap-2">
-								<Button type="submit">Add Application</Button>
 							</div>
-						</form>
 					</div>
 					<DialogFooter>
 						<DialogClose asChild>
 							<Button variant="outline">Cancel</Button>
 						</DialogClose>
+
+						<Button type="submit">{application ? "Update" : "Add"} Application</Button>
 					</DialogFooter>
+
+					</form>
 				</DialogContent>
 			</Dialog>
 			<AddPositionDialog
