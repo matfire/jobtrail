@@ -48,11 +48,11 @@ export const ApplicationCard = ({
 	};
 
 	const handlePostOpen = () => {
-	if (!application.postUrl) {
-	return
-	}
-	  window.open(application.postUrl)
-	}
+		if (!application.postUrl) {
+			return;
+		}
+		window.open(application.postUrl);
+	};
 
 	return (
 		<>
@@ -103,17 +103,27 @@ export const ApplicationCard = ({
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="w-40" align="end">
 								<DropdownMenuItem asChild>
-									<Button variant="ghost" className="w-full h-8" onClick={() => setEditOpen(true)}>
-										<Pen className="h-4 w-4"/>
+									<Button
+										variant="ghost"
+										className="h-8 w-full"
+										onClick={() => setEditOpen(true)}
+									>
+										<Pen className="h-4 w-4" />
 										Edit application
 									</Button>
 								</DropdownMenuItem>
-								{application.postUrl && <DropdownMenuItem asChild>
-								  <Button variant="ghost" className="w-full h-8" onClick={handlePostOpen}>
-										<Globe className="h-4 w-4" />
-										Open Job Link
-									</Button>
-								</DropdownMenuItem>}
+								{application.postUrl && (
+									<DropdownMenuItem asChild>
+										<Button
+											variant="ghost"
+											className="h-8 w-full"
+											onClick={handlePostOpen}
+										>
+											<Globe className="h-4 w-4" />
+											Open Job Link
+										</Button>
+									</DropdownMenuItem>
+								)}
 								<DropdownMenuItem asChild>
 									<NotesDialog applicationId={application.id} />
 								</DropdownMenuItem>
