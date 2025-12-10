@@ -45,6 +45,9 @@ importers:
       '@types/node':
         specifier: ^22.19.1
         version: 22.19.1
+      lefthook:
+        specifier: ^2.0.9
+        version: 2.0.9
       turbo:
         specifier: ^2.6.3
         version: 2.6.3
@@ -65,16 +68,16 @@ importers:
         version: link:../../packages/db
       '@orpc/openapi':
         specifier: 'catalog:'
-        version: 1.12.2(ws@8.18.3)
+        version: 1.11.3(ws@8.18.3)
       '@orpc/server':
         specifier: 'catalog:'
-        version: 1.12.2(ws@8.18.3)
+        version: 1.11.3(ws@8.18.3)
       '@orpc/zod':
         specifier: 'catalog:'
-        version: 1.12.2(@orpc/contract@1.12.2)(@orpc/server@1.12.2(ws@8.18.3))(ws@8.18.3)(zod@4.1.13)
+        version: 1.11.3(@orpc/contract@1.12.2)(@orpc/server@1.11.3(ws@8.18.3))(ws@8.18.3)(zod@4.1.13)
       better-auth:
         specifier: 'catalog:'
-        version: 1.4.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(solid-js@1.9.10)
+        version: 1.4.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(solid-js@1.9.10)
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
@@ -519,25 +522,10 @@ packages:
       kysely: ^0.28.5
       nanostores: ^1.0.1
 
-  '@better-auth/core@1.4.5':
-    resolution: {integrity: sha512-dQ3hZOkUJzeBXfVEPTm2LVbzmWwka1nqd9KyWmB2OMlMfjr7IdUeBX4T7qJctF67d7QDhlX95jMoxu6JG0Eucw==}
-    peerDependencies:
-      '@better-auth/utils': 0.3.0
-      '@better-fetch/fetch': 1.1.18
-      better-call: 1.1.4
-      jose: ^6.1.0
-      kysely: ^0.28.5
-      nanostores: ^1.0.1
-
   '@better-auth/telemetry@1.4.3':
     resolution: {integrity: sha512-rBkNdUCZJVuc6AQyg9W5A8fgYdOxDyhytfGy3aWrZw77JGJ2KiPwZfZ+OrFxubOzZvFdhoeTo6yfFURRqTFCwQ==}
     peerDependencies:
       '@better-auth/core': 1.4.3
-
-  '@better-auth/telemetry@1.4.5':
-    resolution: {integrity: sha512-r3NyksbaBYA10SC86JA6QwmZfHwFutkUGcphgWGfu6MVx1zutYmZehIeC8LxTjOWZqqF9FI8vLjglWBHvPQeTg==}
-    peerDependencies:
-      '@better-auth/core': 1.4.5
 
   '@better-auth/utils@0.3.0':
     resolution: {integrity: sha512-W+Adw6ZA6mgvnSnhOki270rwJ42t4XzSK6YWGF//BbVXL6SwCLWfyzBc1lN2m/4RM28KubdBKQ4X5VMoLRNPQw==}
@@ -1133,40 +1121,17 @@ packages:
   '@orpc/interop@1.11.3':
     resolution: {integrity: sha512-NOTXLsp1jkFyHGzZM0qST9LtCrBUr5qN7OEDpslPXm2xV6I1IFok15QoVtxg033vEBXD5AbtTVCkzmaLb5JJ1w==}
 
-  '@orpc/interop@1.12.2':
-    resolution: {integrity: sha512-whHawJ8XZBzxngqOZKRzkI6HaFZcFSdbaK0//LmqOdSKXBeuveHF+kprCcpr8C6rH2N5i9nKMdnt0RetjPvxCg==}
-
   '@orpc/json-schema@1.11.3':
     resolution: {integrity: sha512-xaJfzXFDdo2HXkXBC0oWT+RjHaipyxn+r2nS8XfQdkDfQ/6CL0TFdN2irFcMaTXkWzEpyUuzZ+/vElZ4QVeQ+w==}
-
-  '@orpc/json-schema@1.12.2':
-    resolution: {integrity: sha512-b1SFH8d5lSKDPNcgK3fD3OvKKdO4eSjLilWmWUSQxqgfTEBckOIIMTfczDRQEkJIg/IyN++tYSwmjPFEI+dM3w==}
 
   '@orpc/openapi-client@1.11.3':
     resolution: {integrity: sha512-6xjf4O5J7Ge6m1mLlsTrM/SQaOOvcIFpW9uxGJImlXmfYn36Ui0FshU/z+mV6xSYbiywLIfM3VKPMrUUQTbweg==}
 
-  '@orpc/openapi-client@1.12.2':
-    resolution: {integrity: sha512-Ci0TT4eSjRAMmBEwF9RBYrVWGEa/OALp6dKjM28FErqEqxQ5hdI5HMnNmFqGl5neIt05qtYEZRqhVv3jagOIcg==}
-
   '@orpc/openapi@1.11.3':
     resolution: {integrity: sha512-whhg5o75IvkCQ+90JE9XypbpAikH7DasewmUnkB32xLrL90QXdQz5WME4d3lkVDSBISM06ZKh+VIKtY8w9D9Ew==}
 
-  '@orpc/openapi@1.12.2':
-    resolution: {integrity: sha512-21aB1uxNvzxnWBI/Y9pbhGL9i/w/kF62Zxiindopcy6PO+jjNhmHRCvJte70Rb+8rieoRMqn7m1d6yMC2B6NtQ==}
-
   '@orpc/server@1.11.3':
     resolution: {integrity: sha512-lgwIAk8VzeoIrR/i9x2VWj/KdmCrg4lqfQeybsXABBR9xJsPAZtW3ClgjNq60+leqiGnVTpj2Xxphja22bGA0A==}
-    peerDependencies:
-      crossws: '>=0.3.4'
-      ws: '>=8.18.1'
-    peerDependenciesMeta:
-      crossws:
-        optional: true
-      ws:
-        optional: true
-
-  '@orpc/server@1.12.2':
-    resolution: {integrity: sha512-lgT3VR+yXsCcgzbZ2d1fXtqaf1RbgUJHMDWQ4J22LBYH1P8pi0Nk+EYi9/w3YNFIr1WuUmVu4Pm6Dg6l92oiQA==}
     peerDependencies:
       crossws: '>=0.3.4'
       ws: '>=8.18.1'
@@ -1195,19 +1160,8 @@ packages:
   '@orpc/standard-server-aws-lambda@1.11.3':
     resolution: {integrity: sha512-LYJkps5hRKtBpeVeXE5xxdXhgPFj8I1wPtl+PJj06LIkuwuNWEmWdlrGH5lcyh5pWtJn8yJSDOIuGqHbuMTB7Q==}
 
-  '@orpc/standard-server-aws-lambda@1.12.2':
-    resolution: {integrity: sha512-2gpM0ipl3YvE6/bJKTE6Oga4EROo2zuRiOzwY21F/3q38xyQ344Lk1smHzUv20lYZEIBDWP0FRR0OPhBQYLwNQ==}
-
   '@orpc/standard-server-fastify@1.11.3':
     resolution: {integrity: sha512-Zom7Q4dDZW27KE4gco9HEH59dmBx2GLIqoRuy8LB97boktsGlbF/CVQ2W1ivcLOZ4yuJ0YXmq4egoWQ20apZww==}
-    peerDependencies:
-      fastify: '>=5.6.1'
-    peerDependenciesMeta:
-      fastify:
-        optional: true
-
-  '@orpc/standard-server-fastify@1.12.2':
-    resolution: {integrity: sha512-O1IsvytsK1j6cbuztreE5sJHL3OyvDMn1lSWKO16YoLBK47W8XRHCVBKDDV+1gk4f4Q74bSJOvNGQh1OUcNbkg==}
     peerDependencies:
       fastify: '>=5.6.1'
     peerDependenciesMeta:
@@ -1222,9 +1176,6 @@ packages:
 
   '@orpc/standard-server-node@1.11.3':
     resolution: {integrity: sha512-PvGKFMs1CGZ/phiftEadUh1KwLZXgN2Q5XEw2NNE8Q8YXAClwPBSLcCRp4dVRMwo06hONznW04uUubh2OA0MWA==}
-
-  '@orpc/standard-server-node@1.12.2':
-    resolution: {integrity: sha512-st9yjw3i+xFJu8YHeKcCBchMkRKyobBNqstR8yUelrLE/+rC0qKX+AwrmP6xq6gP6BQqFk+RSfIManaIruKuuQ==}
 
   '@orpc/standard-server-peer@1.11.3':
     resolution: {integrity: sha512-GkINRYjWRTOKQIsPWvqCvbjNjaLnhDAVJLrQNGTaqy7yLTDG8ome7hCrmH3bdjDY4nDlt8OoUaq9oABE/1rMew==}
@@ -1249,13 +1200,6 @@ packages:
     peerDependencies:
       '@orpc/contract': 1.11.3
       '@orpc/server': 1.11.3
-      zod: '>=3.25.0'
-
-  '@orpc/zod@1.12.2':
-    resolution: {integrity: sha512-U2XQyxsONPeSPY0rJ3JHXZhicS5KD5zJADj6p9h98TywO7qH/8a/u8tc8oB3f0qUiILY7crdGQBVw34MkuT44A==}
-    peerDependencies:
-      '@orpc/contract': 1.12.2
-      '@orpc/server': 1.12.2
       zod: '>=3.25.0'
 
   '@oxc-project/runtime@0.101.0':
@@ -2693,48 +2637,8 @@ packages:
       vue:
         optional: true
 
-  better-auth@1.4.5:
-    resolution: {integrity: sha512-pHV2YE0OogRHvoA6pndHXCei4pcep/mjY7psSaHVrRgjBtumVI68SV1g9U9XPRZ4KkoGca9jfwuv+bB2UILiFw==}
-    peerDependencies:
-      '@lynx-js/react': '*'
-      '@sveltejs/kit': ^2.0.0
-      '@tanstack/react-start': ^1.0.0
-      next: ^14.0.0 || ^15.0.0 || ^16.0.0
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-      solid-js: ^1.0.0
-      svelte: ^4.0.0 || ^5.0.0
-      vue: ^3.0.0
-    peerDependenciesMeta:
-      '@lynx-js/react':
-        optional: true
-      '@sveltejs/kit':
-        optional: true
-      '@tanstack/react-start':
-        optional: true
-      next:
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      solid-js:
-        optional: true
-      svelte:
-        optional: true
-      vue:
-        optional: true
-
   better-call@1.1.0:
     resolution: {integrity: sha512-7CecYG+yN8J1uBJni/Mpjryp8bW/YySYsrGEWgFe048ORASjq17keGjbKI2kHEOSc6u8pi11UxzkJ7jIovQw6w==}
-
-  better-call@1.1.4:
-    resolution: {integrity: sha512-NJouLY6IVKv0nDuFoc6FcbKDFzEnmgMNofC9F60Mwx1Ecm7X6/Ecyoe5b+JSVZ42F/0n46/M89gbYP1ZCVv8xQ==}
-    peerDependencies:
-      zod: ^4.0.0
-    peerDependenciesMeta:
-      zod:
-        optional: true
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -3063,9 +2967,6 @@ packages:
   jose@6.1.2:
     resolution: {integrity: sha512-MpcPtHLE5EmztuFIqB0vzHAWJPpmN1E6L4oo+kze56LIs3MyXIj9ZHMDxqOvkP38gBR7K1v3jqd4WU2+nrfONQ==}
 
-  jose@6.1.3:
-    resolution: {integrity: sha512-0TpaTfihd4QMNwrz/ob2Bp7X04yuxJkjRGi4aKmOqwhov54i6u79oCv7T+C7lo70MKH6BesI3vscD1yb/yzKXQ==}
-
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -3073,9 +2974,6 @@ packages:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
     engines: {node: '>=6'}
     hasBin: true
-
-  json-schema-typed@8.0.2:
-    resolution: {integrity: sha512-fQhoXdcvc3V28x7C7BMs4P5+kNlgUURe2jmUT1T//oBRMDrqy1QPelJimwZGo7Hg9VPV3EQV5Bnq4hbFy2vetA==}
 
   json5@2.2.3:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
@@ -3088,6 +2986,60 @@ packages:
 
   launch-editor@2.12.0:
     resolution: {integrity: sha512-giOHXoOtifjdHqUamwKq6c49GzBdLjvxrd2D+Q4V6uOHopJv7p9VJxikDsQ/CBXZbEITgUqSVHXLTG3VhPP1Dg==}
+
+  lefthook-darwin-arm64@2.0.9:
+    resolution: {integrity: sha512-DRDqDiDWvQ8CAW7c5o90yApxBu5Pe958Ya2OmgTNLKOEw2tSIlz3YPc0AqWlXxp2KkB6RLv0ottLyJFFRmQBtQ==}
+    cpu: [arm64]
+    os: [darwin]
+
+  lefthook-darwin-x64@2.0.9:
+    resolution: {integrity: sha512-Onx2QNWjeVbkDRIbfajcj0U73W51xbhalqRj7yT0JMIIzmyVafnEN2KRrd4i0/UnrquyY2mfrQlVjDM1DoMvCg==}
+    cpu: [x64]
+    os: [darwin]
+
+  lefthook-freebsd-arm64@2.0.9:
+    resolution: {integrity: sha512-0Ew0kabZkl9uid7sz9DxeFjQSI0oBWwMA8eyeQf4z0FWQ1iMay+TSgV8WOSN0OAiS6QECmrl7J+5/S8z4t2XYQ==}
+    cpu: [arm64]
+    os: [freebsd]
+
+  lefthook-freebsd-x64@2.0.9:
+    resolution: {integrity: sha512-bCqj0+bKzMenYkpJty7ZDGR8+RT/PxoYkt5QqIhxCj1b+DjFyOiMAbMiWr7vRm8tLiYK6ieVr5xsvjYPCXAsdA==}
+    cpu: [x64]
+    os: [freebsd]
+
+  lefthook-linux-arm64@2.0.9:
+    resolution: {integrity: sha512-jSE+ZIxz++5JkU9vTY0ZCz7VijUvPw9rUXu/ufGq7HYHaxkQlgqGY9p9H9y10Oh1EahWiC3jGlForx5JhHDrCg==}
+    cpu: [arm64]
+    os: [linux]
+
+  lefthook-linux-x64@2.0.9:
+    resolution: {integrity: sha512-Xwqew12w+9HiR0bBetTgaRuR9MdHnoe8gnluUSaH/wuGhC9ChEnxRu4ckahll4/Xl75TntlkOZOMDpnYU5YeEQ==}
+    cpu: [x64]
+    os: [linux]
+
+  lefthook-openbsd-arm64@2.0.9:
+    resolution: {integrity: sha512-5ErPjbzu2623TKPM1lOcsjzswYeEA1u1f8qPp1uvR8QgWDJlx4xdbOQErF5OsYSWhqAegxQITmrJgdPBvjWuFg==}
+    cpu: [arm64]
+    os: [openbsd]
+
+  lefthook-openbsd-x64@2.0.9:
+    resolution: {integrity: sha512-DhFRJZamG3I+nTPTZV0N3N5VmB4FJSbT/oG4JYDqkvxtqwb3zAL6Q/868uVEgdZl9USxu2yRKI7RnKdllDvdzQ==}
+    cpu: [x64]
+    os: [openbsd]
+
+  lefthook-windows-arm64@2.0.9:
+    resolution: {integrity: sha512-zp3mLv67+NBPuX9YrYk3CArkREoko1txAsEPyiB/NXGH3QgLHw9HbR+IeY1TslGlXvzQTBrJaiNcmsQWLFFvAQ==}
+    cpu: [arm64]
+    os: [win32]
+
+  lefthook-windows-x64@2.0.9:
+    resolution: {integrity: sha512-1TMNYvsW4D7MD66CRXkvcVTbNCq93wTH5IjTlSSn5CtJer9PFwBMWZfeFeEBU0c0gGAUq4NmkYN2pS8RZfISvA==}
+    cpu: [x64]
+    os: [win32]
+
+  lefthook@2.0.9:
+    resolution: {integrity: sha512-SiHbJzS6QCp9UlYh4QZ2Bu+zSNEIFTASXz03hTNL5G6frZeXH56831DDqcPEy+729eA05po3n9ByJ0cAv4yQdw==}
+    hasBin: true
 
   lightningcss-android-arm64@1.30.2:
     resolution: {integrity: sha512-BH9sEdOCahSgmkVhBLeU7Hc9DWeZ1Eb6wNS6Da8igvUwAe0sqROHddIlvU06q3WyXVEOYDZ6ykBZQnjTbmo4+A==}
@@ -3172,10 +3124,6 @@ packages:
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
-
-  ms@4.0.0-nightly.202508271359:
-    resolution: {integrity: sha512-WC/Eo7NzFrOV/RRrTaI0fxKVbNCzEy76j2VqNV8SxDf9D69gSE2Lh0QwYvDlhiYmheBYExAvEAxVf5NoN0cj2A==}
-    engines: {node: '>=20'}
 
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
@@ -3925,26 +3873,9 @@ snapshots:
       nanostores: 1.1.0
       zod: 4.1.13
 
-  '@better-auth/core@1.4.5(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.4(zod@4.1.13))(jose@6.1.3)(kysely@0.28.8)(nanostores@1.1.0)':
-    dependencies:
-      '@better-auth/utils': 0.3.0
-      '@better-fetch/fetch': 1.1.18
-      '@standard-schema/spec': 1.0.0
-      better-call: 1.1.4(zod@4.1.13)
-      jose: 6.1.3
-      kysely: 0.28.8
-      nanostores: 1.1.0
-      zod: 4.1.13
-
   '@better-auth/telemetry@1.4.3(@better-auth/core@1.4.3(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.0)(jose@6.1.2)(kysely@0.28.8)(nanostores@1.1.0))':
     dependencies:
       '@better-auth/core': 1.4.3(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.0)(jose@6.1.2)(kysely@0.28.8)(nanostores@1.1.0)
-      '@better-auth/utils': 0.3.0
-      '@better-fetch/fetch': 1.1.18
-
-  '@better-auth/telemetry@1.4.5(@better-auth/core@1.4.5(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.4(zod@4.1.13))(jose@6.1.3)(kysely@0.28.8)(nanostores@1.1.0))':
-    dependencies:
-      '@better-auth/core': 1.4.5(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.4(zod@4.1.13))(jose@6.1.3)(kysely@0.28.8)(nanostores@1.1.0)
       '@better-auth/utils': 0.3.0
       '@better-fetch/fetch': 1.1.18
 
@@ -4333,8 +4264,6 @@ snapshots:
 
   '@orpc/interop@1.11.3': {}
 
-  '@orpc/interop@1.12.2': {}
-
   '@orpc/json-schema@1.11.3(ws@8.18.3)':
     dependencies:
       '@orpc/contract': 1.11.3
@@ -4342,20 +4271,6 @@ snapshots:
       '@orpc/openapi': 1.11.3(ws@8.18.3)
       '@orpc/server': 1.11.3(ws@8.18.3)
       '@orpc/shared': 1.11.3
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - crossws
-      - fastify
-      - ws
-
-  '@orpc/json-schema@1.12.2(ws@8.18.3)':
-    dependencies:
-      '@orpc/contract': 1.12.2
-      '@orpc/interop': 1.12.2
-      '@orpc/openapi': 1.12.2(ws@8.18.3)
-      '@orpc/server': 1.12.2(ws@8.18.3)
-      '@orpc/shared': 1.12.2
-      json-schema-typed: 8.0.2
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - crossws
@@ -4371,15 +4286,6 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
-  '@orpc/openapi-client@1.12.2':
-    dependencies:
-      '@orpc/client': 1.12.2
-      '@orpc/contract': 1.12.2
-      '@orpc/shared': 1.12.2
-      '@orpc/standard-server': 1.12.2
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-
   '@orpc/openapi@1.11.3(ws@8.18.3)':
     dependencies:
       '@orpc/client': 1.11.3
@@ -4389,23 +4295,6 @@ snapshots:
       '@orpc/server': 1.11.3(ws@8.18.3)
       '@orpc/shared': 1.11.3
       '@orpc/standard-server': 1.11.3
-      rou3: 0.7.10
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - crossws
-      - fastify
-      - ws
-
-  '@orpc/openapi@1.12.2(ws@8.18.3)':
-    dependencies:
-      '@orpc/client': 1.12.2
-      '@orpc/contract': 1.12.2
-      '@orpc/interop': 1.12.2
-      '@orpc/openapi-client': 1.12.2
-      '@orpc/server': 1.12.2(ws@8.18.3)
-      '@orpc/shared': 1.12.2
-      '@orpc/standard-server': 1.12.2
-      json-schema-typed: 8.0.2
       rou3: 0.7.10
     transitivePeerDependencies:
       - '@opentelemetry/api'
@@ -4432,25 +4321,6 @@ snapshots:
       - '@opentelemetry/api'
       - fastify
 
-  '@orpc/server@1.12.2(ws@8.18.3)':
-    dependencies:
-      '@orpc/client': 1.12.2
-      '@orpc/contract': 1.12.2
-      '@orpc/interop': 1.12.2
-      '@orpc/shared': 1.12.2
-      '@orpc/standard-server': 1.12.2
-      '@orpc/standard-server-aws-lambda': 1.12.2
-      '@orpc/standard-server-fastify': 1.12.2
-      '@orpc/standard-server-fetch': 1.12.2
-      '@orpc/standard-server-node': 1.12.2
-      '@orpc/standard-server-peer': 1.12.2
-      cookie: 1.1.1
-    optionalDependencies:
-      ws: 8.18.3
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - fastify
-
   '@orpc/shared@1.11.3':
     dependencies:
       radash: 12.1.1
@@ -4470,28 +4340,11 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
-  '@orpc/standard-server-aws-lambda@1.12.2':
-    dependencies:
-      '@orpc/shared': 1.12.2
-      '@orpc/standard-server': 1.12.2
-      '@orpc/standard-server-fetch': 1.12.2
-      '@orpc/standard-server-node': 1.12.2
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-
   '@orpc/standard-server-fastify@1.11.3':
     dependencies:
       '@orpc/shared': 1.11.3
       '@orpc/standard-server': 1.11.3
       '@orpc/standard-server-node': 1.11.3
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-
-  '@orpc/standard-server-fastify@1.12.2':
-    dependencies:
-      '@orpc/shared': 1.12.2
-      '@orpc/standard-server': 1.12.2
-      '@orpc/standard-server-node': 1.12.2
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
@@ -4514,14 +4367,6 @@ snapshots:
       '@orpc/shared': 1.11.3
       '@orpc/standard-server': 1.11.3
       '@orpc/standard-server-fetch': 1.11.3
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-
-  '@orpc/standard-server-node@1.12.2':
-    dependencies:
-      '@orpc/shared': 1.12.2
-      '@orpc/standard-server': 1.12.2
-      '@orpc/standard-server-fetch': 1.12.2
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
@@ -4566,22 +4411,6 @@ snapshots:
       '@orpc/openapi': 1.11.3(ws@8.18.3)
       '@orpc/server': 1.11.3(ws@8.18.3)
       '@orpc/shared': 1.11.3
-      escape-string-regexp: 5.0.0
-      wildcard-match: 5.1.4
-      zod: 4.1.13
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - crossws
-      - fastify
-      - ws
-
-  '@orpc/zod@1.12.2(@orpc/contract@1.12.2)(@orpc/server@1.12.2(ws@8.18.3))(ws@8.18.3)(zod@4.1.13)':
-    dependencies:
-      '@orpc/contract': 1.12.2
-      '@orpc/json-schema': 1.12.2(ws@8.18.3)
-      '@orpc/openapi': 1.12.2(ws@8.18.3)
-      '@orpc/server': 1.12.2(ws@8.18.3)
-      '@orpc/shared': 1.12.2
       escape-string-regexp: 5.0.0
       wildcard-match: 5.1.4
       zod: 4.1.13
@@ -5998,41 +5827,12 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       solid-js: 1.9.10
 
-  better-auth@1.4.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(solid-js@1.9.10):
-    dependencies:
-      '@better-auth/core': 1.4.5(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.4(zod@4.1.13))(jose@6.1.3)(kysely@0.28.8)(nanostores@1.1.0)
-      '@better-auth/telemetry': 1.4.5(@better-auth/core@1.4.5(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.4(zod@4.1.13))(jose@6.1.3)(kysely@0.28.8)(nanostores@1.1.0))
-      '@better-auth/utils': 0.3.0
-      '@better-fetch/fetch': 1.1.18
-      '@noble/ciphers': 2.0.1
-      '@noble/hashes': 2.0.1
-      better-call: 1.1.4(zod@4.1.13)
-      defu: 6.1.4
-      jose: 6.1.3
-      kysely: 0.28.8
-      ms: 4.0.0-nightly.202508271359
-      nanostores: 1.1.0
-      zod: 4.1.13
-    optionalDependencies:
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      solid-js: 1.9.10
-
   better-call@1.1.0:
     dependencies:
       '@better-auth/utils': 0.3.0
       '@better-fetch/fetch': 1.1.18
       rou3: 0.5.1
       set-cookie-parser: 2.7.2
-
-  better-call@1.1.4(zod@4.1.13):
-    dependencies:
-      '@better-auth/utils': 0.3.0
-      '@better-fetch/fetch': 1.1.18
-      rou3: 0.7.10
-      set-cookie-parser: 2.7.2
-    optionalDependencies:
-      zod: 4.1.13
 
   binary-extensions@2.3.0: {}
 
@@ -6295,13 +6095,9 @@ snapshots:
 
   jose@6.1.2: {}
 
-  jose@6.1.3: {}
-
   js-tokens@4.0.0: {}
 
   jsesc@3.1.0: {}
-
-  json-schema-typed@8.0.2: {}
 
   json5@2.2.3: {}
 
@@ -6311,6 +6107,49 @@ snapshots:
     dependencies:
       picocolors: 1.1.1
       shell-quote: 1.8.3
+
+  lefthook-darwin-arm64@2.0.9:
+    optional: true
+
+  lefthook-darwin-x64@2.0.9:
+    optional: true
+
+  lefthook-freebsd-arm64@2.0.9:
+    optional: true
+
+  lefthook-freebsd-x64@2.0.9:
+    optional: true
+
+  lefthook-linux-arm64@2.0.9:
+    optional: true
+
+  lefthook-linux-x64@2.0.9:
+    optional: true
+
+  lefthook-openbsd-arm64@2.0.9:
+    optional: true
+
+  lefthook-openbsd-x64@2.0.9:
+    optional: true
+
+  lefthook-windows-arm64@2.0.9:
+    optional: true
+
+  lefthook-windows-x64@2.0.9:
+    optional: true
+
+  lefthook@2.0.9:
+    optionalDependencies:
+      lefthook-darwin-arm64: 2.0.9
+      lefthook-darwin-x64: 2.0.9
+      lefthook-freebsd-arm64: 2.0.9
+      lefthook-freebsd-x64: 2.0.9
+      lefthook-linux-arm64: 2.0.9
+      lefthook-linux-x64: 2.0.9
+      lefthook-openbsd-arm64: 2.0.9
+      lefthook-openbsd-x64: 2.0.9
+      lefthook-windows-arm64: 2.0.9
+      lefthook-windows-x64: 2.0.9
 
   lightningcss-android-arm64@1.30.2:
     optional: true
@@ -6374,8 +6213,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   ms@2.1.3: {}
-
-  ms@4.0.0-nightly.202508271359: {}
 
   nanoid@3.3.11: {}
 
