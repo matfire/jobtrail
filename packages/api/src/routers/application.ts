@@ -9,6 +9,22 @@ import { protectedProcedure } from "..";
 import { ApplicationSchema } from "../schemas/application";
 import { ApplicationWithPositionSchema } from "../schemas/combi";
 
+const checkPermission = async (userId: string, applicationId: string) => {
+	const data = (
+		await db.select().from(application).where(eq(application.id, applicationId))
+	).at(0);
+	if (!data) {
+		throw new ORPCError("INTERNAL_SERVER_ERROR", {
+			message: "Could not delete position",
+		});
+	}
+	if (data.userId !== userId) {
+		throw new ORPCError("UNAUTHORIZED", {
+			message: "Could not delete position",
+		});
+	}
+};
+
 const getApplicationsOutputSchema = z.object({
 	data: z.array(ApplicationWithPositionSchema),
 });
@@ -70,7 +86,9 @@ const updateApplication = protectedProcedure
 	.output(ApplicationSchema)
 	.handler(async ({ context, input }) => {
 		const { id, companyName, postUrl, status, submittedAt, positionId } = input;
-		//TODO check if user is owner of application
+
+		await checkPermission(context.session.user.id, id);
+
 		const updatedApplication = (
 			await db
 				.update(application)
@@ -105,7 +123,9 @@ const deleteApplication = protectedProcedure
 	.output(deleteApplicationOutputSchema)
 	.handler(async ({ context, input }) => {
 		const { id } = input;
-		//TODO check if user is owner of application
+
+		await checkPermission(context.session.user.id, id);
+
 		const deletedApplication = (
 			await db.delete(application).where(eq(application.id, id)).returning()
 		).at(0);

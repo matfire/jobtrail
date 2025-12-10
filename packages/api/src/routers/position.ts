@@ -7,6 +7,22 @@ import z from "zod";
 import { protectedProcedure } from "..";
 import { PositionSchema } from "../schemas/position";
 
+const checkPermission = async (userId: string, positionId: string) => {
+	const data = (
+		await db.select().from(position).where(eq(position.id, positionId))
+	).at(0);
+	if (!data) {
+		throw new ORPCError("INTERNAL_SERVER_ERROR", {
+			message: "Could not delete position",
+		});
+	}
+	if (data.userId !== userId) {
+		throw new ORPCError("UNAUTHORIZED", {
+			message: "Could not delete position",
+		});
+	}
+};
+
 const getAvailablePositionsOutput = z.object({
 	data: z.array(PositionSchema),
 });
@@ -32,9 +48,9 @@ const updatePosition = protectedProcedure
 	.input(updatePositionInput)
 	.output(PositionSchema)
 	.handler(async ({ input, context }) => {
-		// TODO check user permissions
-
 		const { name, color, id } = input;
+		await checkPermission(context.session.user.id, id);
+
 		const updated = (
 			await db
 				.update(position)
@@ -46,10 +62,9 @@ const updatePosition = protectedProcedure
 				.returning()
 		).at(0);
 		if (!updated) {
-			throw new ORPCError(
-				"INTERNAL_SERVER_ERROR",
-				"Could not update application",
-			);
+			throw new ORPCError("INTERNAL_SERVER_ERROR", {
+				message: "Could not update application",
+			});
 		}
 		return updated;
 	});
@@ -99,13 +114,13 @@ const deletePosition = protectedProcedure
 	.output(deletePositionOutput)
 	.handler(async ({ context, input }) => {
 		const { id } = input;
-		//TODO check if user is owner of application
+		await checkPermission(context.session.user.id, id);
 		const deletedPosition = (
 			await db.delete(position).where(eq(position.id, id)).returning()
 		).at(0);
 		if (!deletedPosition) {
 			throw new ORPCError("INTERNAL_SERVER_ERROR", {
-				message: "Could not delete record",
+				message: "Could not delete position",
 			});
 		}
 		return { id: deletedPosition.id };
