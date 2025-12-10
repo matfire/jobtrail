@@ -1,16 +1,11 @@
+import type { Position } from "@jobtrail/api/schemas/position";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { PositionDialog } from "@/components/position-dialog";
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog";
+
 import {
 	Table,
 	TableBody,
@@ -27,7 +22,9 @@ export const Route = createFileRoute("/_auth/positions")({
 
 function RouteComponent() {
 	const [editOpen, setEditOpen] = useState(false);
-	const [selectedId, setSelectedId] = useState<string | null>(null);
+	const [selectedPosition, setSelectedPosition] = useState<Position | null>(
+		null,
+	);
 	const queryClient = useQueryClient();
 	const { data } = useQuery(
 		orpc.positionRouter.getAvailablePositions.queryOptions(),
@@ -49,27 +46,22 @@ function RouteComponent() {
 		);
 	};
 
+	const handlePositionUpdate = (id: string) => {
+		const position = data?.data.find((position) => position.id === id);
+		if (!position) {
+			return;
+		}
+		setSelectedPosition(position);
+		setEditOpen(true);
+	};
+
 	return (
 		<div>
-			<Dialog
+			<PositionDialog
 				open={editOpen}
-				onOpenChange={() => {
-					setEditOpen(false);
-					setSelectedId(null);
-				}}
-			>
-				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>Edit Position</DialogTitle>
-					</DialogHeader>
-					<div />
-					<DialogFooter>
-						<DialogClose asChild>
-							<Button variant="secondary">Close</Button>
-						</DialogClose>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+				setOpen={setEditOpen}
+				position={selectedPosition ?? undefined}
+			/>
 			<Table>
 				<TableHeader>
 					<TableRow>
@@ -95,8 +87,7 @@ function RouteComponent() {
 								<Button
 									variant="secondary"
 									onClick={() => {
-										setSelectedId(position.id);
-										setEditOpen(true);
+										handlePositionUpdate(position.id);
 									}}
 								>
 									<Pencil />

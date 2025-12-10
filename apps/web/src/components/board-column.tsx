@@ -1,6 +1,6 @@
 import type { ApplicationWithPosition } from "@jobtrail/api/schemas/combi";
 import type { VALID_KAMBAN_TABLES } from "@jobtrail/common";
-import { type DragEvent, useState } from "react";
+import type { DragEvent } from "react";
 import { ApplicationCard } from "./application-card";
 
 interface BoardColumnProps {

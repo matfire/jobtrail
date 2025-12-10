@@ -3,7 +3,7 @@ import type { Position } from "@jobtrail/api/schemas/position";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import { Clipboard, EllipsisVertical, Globe, Pen, Trash2 } from "lucide-react";
+import { EllipsisVertical, Globe, Pen, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { orpc } from "@/utils/orpc";
 import { ApplicationDialog } from "./application-dialog";
@@ -72,7 +72,7 @@ export const ApplicationCard = ({
 								className="mt-2 font-medium text-xs"
 								style={{
 									backgroundColor: position?.color
-										? position.color + "20"
+										? `${position.color}20`
 										: "gray20",
 									color: position?.color,
 									borderColor: position?.color,

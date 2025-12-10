@@ -5,7 +5,7 @@ import { ChevronDownIcon, Plus } from "lucide-react";
 import { useState } from "react";
 import z from "zod";
 import { orpc } from "@/utils/orpc";
-import { AddPositionDialog } from "./add-position-dialog";
+import { PositionDialog } from "./position-dialog";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import {
@@ -283,7 +283,7 @@ export const ApplicationDialog = ({
 					</form>
 				</DialogContent>
 			</Dialog>
-			<AddPositionDialog
+			<PositionDialog
 				open={createRoleOpen}
 				setOpen={setCreateRoleOpen}
 				setPositionValue={setPosition}

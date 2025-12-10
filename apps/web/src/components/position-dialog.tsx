@@ -1,3 +1,4 @@
+import type { Position } from "@jobtrail/api/schemas/position";
 import { useForm } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -16,10 +17,11 @@ import {
 import { Field, FieldError, FieldGroup, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 
-interface AddPositionDialogProps {
+interface PositionDialogProps {
 	open: boolean;
 	setOpen: (v: boolean) => void;
-	setPositionValue: (v: string) => void;
+	setPositionValue?: (v: string) => void;
+	position?: Position;
 }
 
 const formSchema = z.object({
@@ -27,15 +29,20 @@ const formSchema = z.object({
 	color: z.string().nonempty(),
 });
 
-export const AddPositionDialog = ({
+export const PositionDialog = ({
 	open,
 	setOpen,
 	setPositionValue,
-}: AddPositionDialogProps) => {
+	position,
+}: PositionDialogProps) => {
 	const [loading, setLoading] = useState(false);
 	const createPositionMutation = useMutation(
 		orpc.positionRouter.createPosition.mutationOptions(),
 	);
+	const updatePositionMutation = useMutation(
+		orpc.positionRouter.updatePosition.mutationOptions(),
+	);
+
 	const queryClient = useQueryClient();
 	const form = useForm({
 		validators: {
@@ -43,34 +50,53 @@ export const AddPositionDialog = ({
 			onSubmit: formSchema,
 		},
 		defaultValues: {
-			name: "",
-			color: "",
+			name: position?.name ?? "",
+			color: position?.color ?? "",
 		},
 		onSubmit: ({ value }) => {
 			setLoading(true);
-			createPositionMutation.mutate(
-				{
-					...value,
-				},
-				{
-					onSuccess: async (value) => {
-						await queryClient.refetchQueries({
-							queryKey: orpc.positionRouter.getAvailablePositions.key(),
-						});
-						setLoading(false);
-						setPositionValue(value.id);
-						form.reset();
-						setOpen(false);
+			if (position) {
+				updatePositionMutation.mutate(
+					{
+						...value,
+						id: position.id,
 					},
-				},
-			);
+					{
+						onSuccess: async () => {
+							await queryClient.refetchQueries({
+								queryKey: orpc.positionRouter.getAvailablePositions.key(),
+							});
+							setLoading(false);
+							form.reset();
+							setOpen(false);
+						},
+					},
+				);
+			} else {
+				createPositionMutation.mutate(
+					{
+						...value,
+					},
+					{
+						onSuccess: async (value) => {
+							await queryClient.refetchQueries({
+								queryKey: orpc.positionRouter.getAvailablePositions.key(),
+							});
+							setLoading(false);
+							setPositionValue?.(value.id);
+							form.reset();
+							setOpen(false);
+						},
+					},
+				);
+			}
 		},
 	});
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Add Role</DialogTitle>
+					<DialogTitle>{position ? "Update" : "Create"} Role</DialogTitle>
 					<DialogDescription />
 				</DialogHeader>
 				<form
@@ -133,7 +159,7 @@ export const AddPositionDialog = ({
 							</Button>
 						</DialogClose>
 						<Button disabled={loading} type="submit">
-							Create
+							{position ? "Update" : "Create"}
 						</Button>
 					</DialogFooter>
 				</form>
