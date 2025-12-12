@@ -50,7 +50,7 @@ const getNotes = protectedProcedure
 				message: "Could not retrieve notes",
 			});
 		}
-		if (applicationData.userId !== context.session.user.Id) {
+		if (applicationData.userId !== context.session.user.id) {
 			throw new ORPCError("UNAUTHORIZED", {
 				message: "Could not retrieve notes",
 			});
